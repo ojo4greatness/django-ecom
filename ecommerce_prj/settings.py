@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import dj_database_url
+
 from pathlib import Path
 
 from django.conf.global_settings import STATICFILES_DIRS, STATIC_ROOT, MEDIA_URL, MEDIA_ROOT
@@ -97,6 +99,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES["default"] = dj_database_url.parse(os.getenv("DATABASE_URL"))
 
 
 # Password validation
