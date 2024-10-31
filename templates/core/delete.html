@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Delete Product</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p class="my-5">Are you sure you want to delete <strong>'{{ product.name }}'</strong>?</p>
+      <a href="{% url 'core:detail' product.id %}" class="btn btn-primary">Back</a>
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    </form>
+{% endblock content %}

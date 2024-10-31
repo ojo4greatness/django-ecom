@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Product details {% endblock title %}
+
+
+{% block content %}  <!-- Override the "content" block -->
+<h1>{{ product.name }} details</h1>
+
+
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" class="img-fluid" alt="Product Image">
+            </div>
+            <div class="col-md-6">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <h3>Price: ₦{{ product.price }}</h3>
+                <div class="rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <div class="product-options">
+                    <label for="size">Size:</label>
+                    <select id="size" class="form-control">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                    <label for="color">Color:</label>
+                    <select id="color" class="form-control">
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
+                <br>
+                {% if product.created_by == request.user %}
+                  <a href="{% url 'core:edit-item' product.id %}" class="btn btn-primary">Edit</a>
+                  <a href="{% url 'core:delete' product.id %}" class="btn btn-danger">Delete</a>
+                {% else %}
+                <button class="btn btn-primary">Contact Seller</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2>Product Details</h2>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Stock</th>
+                            <td>{{ product.stock }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sold by</th>
+                            <td>{{ product.created_by }}</td>
+                        </tr>
+                        <tr>
+                            <th>Published on</th>
+                            <td>{{ product.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last updated on</th>
+                            <td>{{ product.modified_at }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% if related_products %}
+
+        <div class="related-products">
+            <div class="row">
+                <br><h3>Related products</h3>
+            {% for related_product in related_products %}
+                <div class="col-md-3">
+                    <img src="{{ related_product.image.url }}" class="img-fluid" alt="{{ related_product.name }}">
+                    <h5>{{ related_product.name }}</h5>
+                    <p>₦{{ related_product.price }}</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+
+{% else %}
+    <p>There are not related products</p>
+{% endif %}
+{% endblock content %}

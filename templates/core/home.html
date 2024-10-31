@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+
+{% block content %}  <!-- Override the "content" block -->
+<h1>Welcome BuyRight!</h1>
+
+
+
+<div class="row">
+    {% for product in products %}
+  <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
+    <div class="card h-100">
+      <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">₦{{ product.price }}</p>
+          <a href="{% url 'core:detail' product.id %}" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+   {% endfor %}
+</div>
+
+{% endblock content %}
