@@ -36,8 +36,15 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
+ALLOWED_HOSTS = [
+    'localhost',  # Allow localhost for local development
+    '127.0.0.1',  # Allow 127.0.0.1 for local development
+    RENDER_EXTERNAL_HOSTNAME,  # Allow the Render external hostname
+]
 
 # Application definition
 
